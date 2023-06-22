@@ -11,12 +11,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Tratamientos.belongsTo(models.Usuario,
+        {
+          as:'usuario',
+          foreignKey:'usuarioId'
+        }
+        );
+
+        models.Tratamiento.hasMany(models.Medicamentos,
+          {
+            as:'Medicamento',
+            foreignKey:'usuarioId'
+          }
+          )
     }
   }
   Tratamiento.init({
     fechaInicio: DataTypes.DATE,
     fechaFinal: DataTypes.DATE,
-    intervaloDosis: DataTypes.TIME
+    intervaloDosis: DataTypes.TIME,
+    userId:DataTypes.INTEGER,
+    medicamentoId:DataTypes.INTEGER
+
   }, {
     sequelize,
     modelName: 'Tratamiento',

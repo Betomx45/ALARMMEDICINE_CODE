@@ -11,10 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Notificaciones.belongsTo(models.Usuario,
+        {
+          as:'notificacion',
+          foreignKey:'usuarioId'
+        }
+        )
     }
   }
   Notificaciones.init({
-    message: DataTypes.STRING
+    message: DataTypes.STRING,
+    usuarioId:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Notificaciones',
