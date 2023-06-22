@@ -11,17 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Tratamientos.belongsTo(models.Usuario,
+      models.Tratamiento.belongsTo(models.Usuario,
         {
           as:'usuario',
-          foreignKey:'usuarioId'
+          foreignKey:'userId'
         }
         );
 
-        models.Tratamiento.hasMany(models.Medicamentos,
+        models.Tratamiento.hasMany(models.Medicamento,
           {
-            as:'Medicamento',
-            foreignKey:'usuarioId'
+            as:'medicamento',
+            foreignKey:'medicamentoId'
           }
           )
     }
@@ -31,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     fechaFinal: DataTypes.DATE,
     intervaloDosis: DataTypes.TIME,
     userId:DataTypes.INTEGER,
-    medicamentoId:DataTypes.INTEGER
 
   }, {
     sequelize,

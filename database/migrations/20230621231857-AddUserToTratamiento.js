@@ -6,7 +6,7 @@ module.exports = {
     return Promise.all([
       queryInterface.addColumn(
         'Tratamientos',
-        'usuarioId',
+        'userId',
         {
           type:Sequelize.DataTypes.INTEGER,
           references:{
