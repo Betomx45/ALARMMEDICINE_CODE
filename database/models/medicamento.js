@@ -14,14 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       models.Medicamento.belongsTo(models.Tratamiento,
         {
           as:'tratamiento',
-          foreignKey:'tratamientoId'
+          foreignKey:'medicamentoId'
         }
-        )
+        );
     }
   }
   Medicamento.init({
     nombre: DataTypes.STRING,
-    descripcion: DataTypes.STRING
+    descripcion: DataTypes.STRING,
+    medicamentoId:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Medicamento',

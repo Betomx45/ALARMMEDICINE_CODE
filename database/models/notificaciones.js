@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Notificaciones.belongsTo(models.Usuario,
         {
-          as:'notificacion',
+          as:'usuario',
           foreignKey:'usuarioId'
         }
         )
