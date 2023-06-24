@@ -1,4 +1,4 @@
-import tratamiento from "@/database/models/tratamiento";
+
 import db from "database/models/"
 
 export default function handler(req, res) {
