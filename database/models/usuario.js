@@ -27,9 +27,47 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Usuario.init({
-    nombre: DataTypes.STRING,
-    correo: DataTypes.STRING,
-    password: DataTypes.STRING
+    nombre: {
+      type:DataTypes.STRING(60),
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'Elnombre es obligatorio'
+        },
+        is:{
+          args: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
+          msg:'Elnombre sólo debe contener texto'
+        },
+      },
+    },
+    correo: {
+      type:DataTypes.STRING(255),
+      allowNull:false,
+      unique:true,
+      validate:{
+        notNull:{
+          msg:'Este es obligatorio',
+        },
+        isEmail:{
+          msg:'Debe ingresar un email valido'
+        },
+      },
+    },
+    password: {
+      type:DataTypes.STRING(255),
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'Este campo es obligatorio',
+        },
+        len:{
+          args: [8,255],
+          msg: 'La contraseña debe contener minimo 8 caracteres '
+        },
+      },
+    },
+    passwordResetToken: DataTypes.STRING(128),
+    passwordResetExpire: DataTypes.BIGINT
   }, {
     sequelize,
     modelName: 'Usuario',
