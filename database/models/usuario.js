@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       unique:true,
       validate:{
         notNull:{
-          msg:'Este es obligatorio',
+          msg:'Este campo es obligatorio',
         },
         isEmail:{
           msg:'Debe ingresar un email valido'
@@ -66,8 +66,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    passwordResetToken: DataTypes.STRING(128),
-    passwordResetExpire: DataTypes.BIGINT
   }, {
     sequelize,
     modelName: 'Usuario',
