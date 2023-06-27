@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false
       },
       intervaloDosis: {
-        type: Sequelize.TIME,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {
