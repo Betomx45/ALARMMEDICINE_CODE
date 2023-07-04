@@ -15,11 +15,11 @@ exports.passwordEmail = async (nombre, correo, token) => {
     // mensaje
     let message = `Hola, ${nombre}<br>`;
     message += "Has solicitado restaurar tu contraseña, "; 
-    message += `<a href ="https://localhost:3000/recover-password/${token}">Haz click aquí</a><br><br>`;
+    message += `<a href ="http://localhost:3000/recover-password/${token}">Haz click aquí</a><br><br>`;
     message += "El enlace es valido por una hora.";
 
     let info = await transporter.sendMail({
-      from: `Luis Alberto <${process.env.SMTP_USER}>`, // sender address
+      from: `Marco Antonio <${process.env.SMTP_USER}>`, // sender address
       to: correo, // list of receivers
       subject: "Recuperación de contraseña", // Subject line
       html: message, // html body
