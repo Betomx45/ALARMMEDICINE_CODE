@@ -41,7 +41,7 @@ export const authOptions = {
   ],
   // rutas de las vistas
   pages: {
-    signIn: '/login',
+    //signIn: '/login',
     error: '/login',
     //newUser: '/auth/register'
   },
