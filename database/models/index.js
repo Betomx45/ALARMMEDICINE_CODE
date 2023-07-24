@@ -20,6 +20,7 @@ import tratamiento from './tratamiento';
 import usuario from './usuario';
 import medicamento from './medicamento';
 import notificaciones from './notificaciones';
+import ubicacion from './ubicacion';
 /*
 fs
   .readdirSync(__dirname)
@@ -41,7 +42,7 @@ db.Tratamiento = tratamiento(sequelize, Sequelize.DataTypes);
 db.Usuario = usuario(sequelize, Sequelize.DataTypes);
 db.Medicamento = medicamento(sequelize, Sequelize.DataTypes);
 db.Notificaciones = notificaciones(sequelize, Sequelize.DataTypes);
-
+db.Ubicacion = ubicacion(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

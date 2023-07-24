@@ -56,22 +56,36 @@ const addTratamiento = async (req, res) => {
 
 // GET: /Tratamiento
 const TratamientoList = async (req, res) => {
-
     try {
+        const id = req.query.id; // Obtener el id de la consulta
 
-        const tratamiento = await db.Tratamiento.findAll({});
+        if (id) {
+            // Si se proporciona un id, buscar un dato específico
+            const tratamiento = await db.Tratamiento.findOne({ where: { id } });
 
-        return res.json(tratamiento)
+            if (!tratamiento) {
+                // Si el id proporcionado no existe, devolver un error 400
+                return res.status(400).json({
+                    error: true,
+                    message: "El id proporcionado no existe"
+                });
+            }
+
+            return res.json(tratamiento);
+        } else {
+            // Si no se proporciona un id, mostrar la lista completa con todos los datos
+            const tratamientos = await db.Tratamiento.findAll({});
+
+            return res.json(tratamientos);
+        };
 
     } catch (error) {
-        return res.status(400).json(
-            {
-                error: true,
-                message: `Ocurrio un error al procesar la petición ${error.message}`
-            }
-        )
+        return res.status(400).json({
+            error: true,
+            message: `Ocurrió un error al procesar la petición: ${error.message}`
+        });
     }
-}
+};
 
 //PUT: /Tratamiento
 const editTratamiento = async (req, res) => {
