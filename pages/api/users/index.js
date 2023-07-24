@@ -57,7 +57,7 @@ const addUser = async (req, res) => {
 
         usuarios.password = null; //evitar enviarlo en la respuesta
 
-        res.json({
+        res.status(200).json({
             usuarios,
             message: 'El usuario fue registrado correctamente.'
         });
@@ -99,7 +99,7 @@ const updateUser = async (req, res) => {
         )
 
         //await db.Usuario.save();
-        res.json({
+        res.status(200).json({
             message: 'El usuario fue actualizado correctamente.'
         });
     } catch (error) {
@@ -133,7 +133,7 @@ const deleteUser = async (req, res) => {
             }
         });
 
-        res.json({
+        res.status(200).json({
             message: 'El usuario fue eliminado correctamente.'
         });
     } catch (error) {
