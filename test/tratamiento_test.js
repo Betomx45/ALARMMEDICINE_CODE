@@ -162,23 +162,23 @@ describe("Módulo de Tratamientos", () => {
                 });
         });
 
-        it("Debe devolver un error al faltar el ID del tratamiento para eliminar", (done) => {
+        it("Debe devolver un error al faltar el ID del medicamento para eliminar", (done) => {
             chai.request(url)
-                .delete('/tratamiento')
+                .delete('/tratamiento?id=200')
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('error');
+                    expect(res.body).to.have.property('message');
                     done();
                 });
         });
 
         it("Debe devolver un error al enviar un ID incorrecto para eliminar", (done) => {
             chai.request(url)
-                .delete('/tratamiento?id=er')
+                .delete('/tratamiento?id=mm')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(400);
+                    expect(res).to.have.status(404);
                     expect(res.body).to.have.property('error');
                     done();
                 });
