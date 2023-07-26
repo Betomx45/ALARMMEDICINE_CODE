@@ -84,7 +84,7 @@ describe("Módulo de Ubicación", () => {
 
         it('Debe devolver un objeto con la ubicación específica si se proporciona un ID válido', (done) => {
             // Suponemos que hay al menos una ubicación en la base de datos
-            const ubicacionId = 1;
+            const ubicacionId = 2;
 
             chai.request(url)
                 .get(`/ubicacion?id=${ubicacionId}`)
@@ -102,7 +102,7 @@ describe("Módulo de Ubicación", () => {
     describe('Pruebas para el endpoint PUT /ubicacion', () => {
         it('Debe actualizar la ubicación y devolver el código de estado 200', (done) => {
             // Suponemos que hay al menos una ubicación en la base de datos
-            const ubicacionId = 1;
+            const ubicacionId = 2;
             const datosActualizados = {
                 latitud: 40.7128,
                 longitud: -74.0060
@@ -123,7 +123,7 @@ describe("Módulo de Ubicación", () => {
 
         it('Debe devolver el código de estado 400 si no se proporcionan latitud y longitud', (done) => {
             // Suponemos que hay al menos una ubicación en la base de datos
-            const ubicacionId = 1;
+            const ubicacionId = 2;
 
             chai.request(url)
                 .put(`/ubicacion?id=${ubicacionId}`)
@@ -158,7 +158,7 @@ describe("Módulo de Ubicación", () => {
     //Delete
     describe('Pruebas para el endpoint DELETE /ubicacion', () => {
         // Suponemos que hay al menos una ubicación en la base de datos con ID 1
-        const ubicacionIdExistente = 1;
+        const ubicacionIdExistente = 2;
         // Suponemos que el siguiente ID no existe en la base de datos
         const ubicacionIdInexistente = 999;
 

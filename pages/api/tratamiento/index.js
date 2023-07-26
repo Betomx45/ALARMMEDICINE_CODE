@@ -101,7 +101,7 @@ const editTratamiento = async (req, res) => {
             }
         )
 
-        res.json({
+        res.status(200).json({
             message: 'Se actualizo el tratamiento'
         });
     } catch (error) {
