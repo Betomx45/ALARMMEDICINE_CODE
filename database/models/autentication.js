@@ -1,26 +1,25 @@
-import db from "./index"
+import db from "./index";
+import bcrypt from "bcrypt";
 
-export const checkUserEmailPassword = async( _correo, password) => {
-    
-    const user = await db.Usuario.findOne({ where: {correo: _correo} });
+export const checkUserEmailPassword = async (_email, password) => {
+  const user = await db.Usuario.findOne({ where: { email: _email } });
 
-    if (!user) {
-        return null;
-    }
+  if (!user) {
+    return null;
+  }
 
-   /* if (!user.isValidPassword(password)) {
-        return null;
-    }*/
+  const passwordMatch = await bcrypt.compare(password, user.password);
 
-    const {
-        id,
-        nombre,
-        correo,
-    } = user;
+  if (!passwordMatch) {
+    return null;
+  }
 
-    return {
-        id,
-        nombre,
-        correo,
-    }
-}
+  const { id, name, username, email } = user;
+
+  return {
+    id,
+    name,
+    username,
+    email,
+  };
+};

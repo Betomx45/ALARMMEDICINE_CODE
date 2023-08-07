@@ -64,7 +64,7 @@ describe("Obtener usuarios", () => {
 
     it("Debe obtener un usuario existente", (done) => {
         chai.request(url)
-        .get('/users/82')
+        .get('/users/1')
         .end(function( err, res ) {
             //console.log(res.body);
             expect(res).to.have.status(200);
@@ -89,7 +89,7 @@ describe("Obtener usuarios", () => {
 
     it("Debe retornar un error al obtener un usuario inexistente", (done) => {
         chai.request(url)
-        .get('/users/1')
+        .get('/users/11000')
         .end(function( err, res ) {
             //console.log(res.body);
             expect(res).to.have.status(404);
@@ -123,7 +123,7 @@ describe("Actualizar Usuarios", () => {
             correo: "marcoantonio.07102@gmail.com"
         };
         chai.request(url)
-        .put('/users/1')
+        .put('/users/19000')
         .send(updateUser)
         .end(function( err, res ) {
             //console.log(res.body);

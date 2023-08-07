@@ -19,14 +19,14 @@ export const authOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        correo: { label: "Nombre Usuario", type: "email", placeholder: "usuario" },
+        email: { label: "Nombre Usuario", type: "email", placeholder: "usuario" },
         password: { label: "Contraseña", type: "password", placeholder: 'Contraseña' }
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         // se puede implementar una función que valide la credencial y devolver el usuario
         //const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
-        const user = await checkUserEmailPassword(credentials.correo, credentials.password)
+        const user = await checkUserEmailPassword(credentials.email, credentials.password)
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return user;
@@ -41,7 +41,7 @@ export const authOptions = {
   ],
   // rutas de las vistas
   pages: {
-    //signIn: '/login',
+    signIn: '/login',
     error: '/login',
     //newUser: '/auth/register'
   },

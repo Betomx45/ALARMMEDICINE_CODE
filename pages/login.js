@@ -26,12 +26,11 @@ import { ErrorOutline } from '@mui/icons-material';
       }
     }, []);
   
-    const onLoginUser = async( { correo, password }) => {
+    const onLoginUser = async( { email, password }) => {
   
       setShowError(false);
 
-      alert("Has iniciado sesión")
-      await signIn('credentials',{ correo, password });
+      await signIn('credentials',{ email, password });
     }
 
     return (
@@ -72,11 +71,11 @@ import { ErrorOutline } from '@mui/icons-material';
                             fullWidth
                             required
                             autoFocus
-                            { ...register('correo', {
+                            { ...register('email', {
                               required: 'Este campo es requerido',
                             })}
-                            error={ !!errors.correo}
-                            helperText={ errors.correo?.message }
+                            error={ !!errors.email}
+                            helperText={ errors.email?.message }
                           />
                           
                         </Grid>
