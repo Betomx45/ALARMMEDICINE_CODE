@@ -16,6 +16,12 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+import tratamiento from './tratamiento';
+import usuario from './usuario';
+import medicamento from './medicamento';
+import notificaciones from './notificaciones';
+import ubicacion from './ubicacion';
+/*
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -30,6 +36,13 @@ fs
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
+*/
+
+db.Tratamiento = tratamiento(sequelize, Sequelize.DataTypes);
+db.Usuario = usuario(sequelize, Sequelize.DataTypes);
+db.Medicamento = medicamento(sequelize, Sequelize.DataTypes);
+db.Notificaciones = notificaciones(sequelize, Sequelize.DataTypes);
+db.Ubicacion = ubicacion(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
