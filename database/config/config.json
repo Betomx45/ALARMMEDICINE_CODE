@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "root",
+    "password": "equipo123",
+    "database": "db_medicine",
+    "host": "108.181.157.254",
+    "port": "18977",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
