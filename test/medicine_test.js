@@ -78,7 +78,7 @@ describe("Módulo de Medicamentos", () => {
     describe("Actualizar Medicamento", () => {
         it("Debe actualizar un medicamento existente con datos correctos", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=7')
+                .put('/tratamiento?id=2')
                 .send({
                     fechaInicio:"2023-07-24 21:41:56",
                     fechaFinal:"2023-07-25 21:41:56",
@@ -99,7 +99,7 @@ describe("Módulo de Medicamentos", () => {
         });
         it("Debe devolver un error al faltar datos obligatorios para actualizar", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=6')
+                .put('/tratamiento?id=2')
                 .send({
                     fechaInicio: "2023-06-23T21:41:56.000Z",
                     fechaFinal: "2023-07-23T21:41:56.000Z",
@@ -115,7 +115,7 @@ describe("Módulo de Medicamentos", () => {
         });
         it("Debe devolver un error al enviar datos incorrectos para actualizar", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=8')
+                .put('/tratamiento?id=2')
                 .send({
                     fechaInicio:1,
                     fechaFinal:2,
@@ -178,7 +178,7 @@ describe("Módulo de Medicamentos", () => {
 
         it("Debe eliminar un tratamiento existente", (done) => {
             chai.request(url)
-                .delete('/tratamiento?id=7')
+                .delete('/tratamiento?id=2')
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(200);

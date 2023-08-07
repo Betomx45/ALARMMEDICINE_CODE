@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Usuario.init({
-    nombre: {
+    name: {
       type:DataTypes.STRING(60),
       allowNull:false,
       validate:{
@@ -40,10 +40,12 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    correo: {
+    email: {
       type:DataTypes.STRING(255),
       allowNull:false,
-      unique:true,
+      unique:{
+        msg:'El email ingresado ya fue registrado'
+      },
       validate:{
         notNull:{
           msg:'Este campo es obligatorio',
