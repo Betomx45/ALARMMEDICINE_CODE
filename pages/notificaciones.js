@@ -13,7 +13,7 @@ export default function Notifications() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  });
 
   useEffect(() => {
     const notificationInterval = setInterval(() => {
