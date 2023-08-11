@@ -21,17 +21,25 @@ export default function handler (req, res) {
 //GET FUNCTION
 const getUser = async (req, res) => {
     try {
-        const usuarios = await db.Usuario.findAll({...req.body});   
-        return res.json(usuarios);
-    } catch (error) {
-        return res.status(400).json(
-            {
+        const userId = req.params.id; // Supongo que el ID se encuentra en los parámetros de la solicitud
+        const usuario = await db.Usuario.findOne({ where: { id: userId } });
+
+        if (!usuario) {
+            return res.status(404).json({
                 error: true,
-                message: `Ocurrió un error al procesar la petición: ${error.message}`
-            }
-        )
+                message: `Usuario con ID ${userId} no encontrado`
+            });
+        }
+
+        return res.json(usuario);
+    } catch (error) {
+        return res.status(400).json({
+            error: true,
+            message: `Ocurrió un error al procesar la petición: ${error.message}`
+        });
     }
-}
+};
+
 
 //POST FUNCTION
 const addUser = async (req, res) => {
@@ -88,21 +96,29 @@ const addUser = async (req, res) => {
 //PUT FUNCITON
 const updateUser = async (req, res) => {
     try {
-        //eliminar los datos del usuario
         const { id } = req.query;
+        
+        const usuario = await db.Usuario.findOne({ where: { id } });
+
+        if (!usuario) {
+            return res.status(404).json({
+                error: true,
+                message: `Usuario con ID ${id} no encontrado, no se puede actualizar`
+            });
+        }
+
         await db.Usuario.update({ ...req.body },
             {
                 where: {
                     id
                 }
             }
-        )
+        );
 
-        //await db.Usuario.save();
         res.status(200).json({
             message: 'El usuario fue actualizado correctamente.'
         });
-    } catch (error) {
+     } catch (error) {
         console.log(error);
         let errors = [];
         if (error.errors) {
@@ -125,8 +141,20 @@ const updateUser = async (req, res) => {
 //DELETE FUNCTION
 const deleteUser = async (req, res) => {
     try {
-        //eliminar los datos del usuario
         const { id } = req.query;
+        const user = await db.Usuario.findOne({
+            where: {
+                id: id
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                error: true,
+                message: 'Usuario no encontrado.'
+            });
+        }
+
         await db.Usuario.destroy({
             where: {
                 id: id
@@ -140,18 +168,15 @@ const deleteUser = async (req, res) => {
         console.log(error);
         let errors = [];
         if (error.errors) {
-            //extraer la información de los campos que tienen error
             errors = error.errors.map((item) => ({
                 error: item.message,
                 field: item.path,
             }));
         }
-        return res.status(400).json(
-            {
-                error: true,
-                message: `Ocurrio un error al procesar la información: ${error.message}`,
-                errors,
-            }
-        )
+        return res.status(400).json({
+            error: true,
+            message: `Ocurrió un error al procesar la información: ${error.message}`,
+            errors,
+        });
     }
 }

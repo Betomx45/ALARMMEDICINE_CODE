@@ -24,7 +24,7 @@ const addTratamiento = async (req, res) => {
         //console.log(req.body);
 
         //guardar los datos del Tratamiento
-        const tratamiento = await db.Tratamiento.create({ ...req.body }, { include: 'medicamento' });
+        const tratamiento = await db.Tratamiento.create({ ...req.body }, { include: 'medicamento'});
 
         res.json({
             tratamiento,
@@ -90,51 +90,65 @@ const TratamientoList = async (req, res) => {
 //PUT: /Tratamiento
 const editTratamiento = async (req, res) => {
     try {
-        //eliminar los datos del tratamiento
         const { id } = req.query;
 
-        //Buscar el tratamiento por id
-        const tratamiento = await db.Tratamiento.update({ ...req.body }, { where: { id } });
+        // Verificar si el tratamiento existe antes de intentar actualizarlo
+        const tratamiento = await db.Tratamiento.findByPk(id);
 
         if (!tratamiento) {
             return res.status(404).json({
                 error: true,
-                message: "El tratamiento no existe"
+                message: 'Tratamiento no encontrado',
             });
         }
 
+        // Actualizar los datos del tratamiento
+        await db.Tratamiento.update({ ...req.body }, {
+            where: {
+                id
+            }
+        });
+
         res.status(200).json({
-            tratamiento,
-            message: 'Se actualizo el tratamiento'
+            message: 'Se actualizó el tratamiento'
         });
     } catch (error) {
         console.log(error);
         let errors = [];
         if (error.errors) {
-            //extraer la información de los campos que tienen error
             errors = error.errors.map((item) => ({
                 error: item.message,
                 field: item.path,
             }));
         }
-        return res.status(400).json(
-            {
-                error: true,
-                message: `Ocurrio un error al procesar la información: ${error.message}`,
-                errors,
-            }
-        )
+        return res.status(400).json({
+            error: true,
+            message: `Ocurrió un error al procesar la información: ${error.message}`,
+            errors,
+        });
     }
 }
+
 
 //DELETE: /Tratamiento
 const deleteTratamiento = async (req, res) => {
     try {
-        //eliminar los datos de la unidad
         const { id } = req.query;
+
+        // Verificar si el tratamiento existe antes de intentar eliminarlo
+        const tratamiento = await db.Tratamiento.findByPk(id);
+
+        if (!tratamiento) {
+            return res.status(404).json({
+                error: true,
+                message: 'Tratamiento no encontrado',
+            });
+        }
+
+        // Eliminar los datos del tratamiento
         await db.Tratamiento.destroy({
             where: {
-                id: id
+                id
             }
         });
 
@@ -145,18 +159,15 @@ const deleteTratamiento = async (req, res) => {
         console.log(error);
         let errors = [];
         if (error.errors) {
-            //extraer la información de los campos que tienen error
             errors = error.errors.map((item) => ({
                 error: item.message,
                 field: item.path,
             }));
         }
-        return res.status(400).json(
-            {
-                error: true,
-                message: `Ocurrio un error al procesar la información: ${error.message}`,
-                errors,
-            }
-        )
+        return res.status(400).json({
+            error: true,
+            message: `Ocurrió un error al procesar la información: ${error.message}`,
+            errors,
+        });
     }
 }
