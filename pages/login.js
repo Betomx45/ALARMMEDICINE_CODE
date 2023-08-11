@@ -24,7 +24,7 @@ import { ErrorOutline } from '@mui/icons-material';
       if (router.query.error && router.query.error === 'CredentialsSignin') {
         setShowError(true);
       }
-    });
+    }, []);
   
     const onLoginUser = async( { email, password }) => {
   

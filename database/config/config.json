@@ -3,7 +3,7 @@
     "username": "root",
     "password": "equipo123",
     "database": "db_medicine",
-    "host": "108.181.157.254",
+    "host": "mariadb-138910-0.cloudclusters.net",
     "port": "18977",
     "dialect": "mysql"
   },
