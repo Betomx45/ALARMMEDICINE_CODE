@@ -24,7 +24,7 @@ const addTratamiento = async (req, res) => {
         //console.log(req.body);
 
         //guardar los datos del Tratamiento
-        const tratamiento = await db.Tratamiento.create({ ...req.body }, { include: 'medicamento'});
+        const tratamiento = await db.Tratamiento.create({ ...req.body }, { include: 'medicamento' });
 
         res.json({
             tratamiento,
@@ -93,15 +93,18 @@ const editTratamiento = async (req, res) => {
         //eliminar los datos del tratamiento
         const { id } = req.query;
 
-        await db.Tratamiento.update({ ...req.body },
-            {
-                where: {
-                    id
-                }
-            }
-        )
+        //Buscar el tratamiento por id
+        const tratamiento = await db.Tratamiento.update({ ...req.body }, { where: { id } });
+
+        if (!tratamiento) {
+            return res.status(404).json({
+                error: true,
+                message: "El tratamiento no existe"
+            });
+        }
 
         res.status(200).json({
+            tratamiento,
             message: 'Se actualizo el tratamiento'
         });
     } catch (error) {

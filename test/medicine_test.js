@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const url = 'http://localhost:3000/api';
+const url = 'zapi';
 
 describe("Módulo de Medicamentos", () => {
 
