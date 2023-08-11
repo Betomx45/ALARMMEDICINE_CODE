@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
+    "username": "admin",
     "password": "equipo123",
-    "database": "db_medicine",
-    "host": "mariadb-138910-0.cloudclusters.net",
-    "port": "18977",
+    "database": "medicine",
+    "host": "mysql-139626-0.cloudclusters.net ",
+    "port": "14873",
     "dialect": "mysql"
   },
   "test": {
@@ -16,9 +16,10 @@
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "password": "equipo123",
+    "database": "medicine",
+    "host": "mariadb-138910-0.cloudclusters.net",
+    "port": "18977",
     "dialect": "mysql"
   }
 }
