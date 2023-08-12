@@ -24,16 +24,16 @@ const addTratamiento = async (req, res) => {
         //console.log(req.body);
 
         //guardar los datos del Tratamiento
-        const {fechaInicio,fechaFinal,intervaloDosis,userId, medicamento} = req.body;
+        const {fechaInicio,fechaFinal,intervaloDosis,userId} = req.body;
 
-        if(!fechaInicio || fechaFinal || intervaloDosis || userId || medicamento) {
+        if(!fechaInicio || fechaFinal || intervaloDosis || userId) {
             return res.status(400).json({
                 error: true,
                 message: "Todos los campos son requeridos"
             });
         };
 
-        const tratamiento = await db.Tratamiento.create({ fechaInicio,fechaFinal,intervaloDosis,userId, Medicamento: medicamento}, { include: 'medicamento'});
+        const tratamiento = await db.Tratamiento.create({ fechaInicio,fechaFinal,intervaloDosis,userId}, { include: 'medicamento'});
 
         res.json({
             tratamiento,
@@ -98,9 +98,9 @@ const TratamientoList = async (req, res) => {
 const editTratamiento = async (req, res) => {
     try {
         const { id } = req.query;
-        const {fechaInicio,fechaFinal,intervaloDosis,userId, medicamento} = req.body;
+        const {fechaInicio,fechaFinal,intervaloDosis,userId} = req.body;
 
-        if(!fechaInicio || fechaFinal || intervaloDosis || userId || medicamento) {
+        if(!fechaInicio || fechaFinal || intervaloDosis || userId) {
             return res.status(400).json({
                 error: true,
                 message: "Todos los campos son requeridos"
@@ -118,7 +118,7 @@ const editTratamiento = async (req, res) => {
         }
 
         // Actualizar los datos del tratamiento
-        await db.Tratamiento.update({ fechaInicio,fechaFinal,intervaloDosis,userId, Medicamento: medicamento}, { include: 'medicamento'}, {
+        await db.Tratamiento.update({ fechaInicio,fechaFinal,intervaloDosis,userId}, { include: 'medicamento'}, {
             where: {
                 id
             }
