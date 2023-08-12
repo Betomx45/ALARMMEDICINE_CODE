@@ -93,12 +93,13 @@ const editTratamiento = async (req, res) => {
         //eliminar los datos del tratamiento
         const { id } = req.query;
 
-        await db.Tratamiento.update([{ ...req.body }, { include: 'medicamento'}],
+        await db.Tratamiento.update([{ ...req.body }, { include: 'medicamento'},
             {
                 where: {
                     id
                 }
             }
+        ]
         )
 
         res.status(200).json({
