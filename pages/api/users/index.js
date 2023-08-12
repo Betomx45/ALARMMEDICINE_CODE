@@ -21,24 +21,50 @@ export default function handler (req, res) {
 //GET FUNCTION
 const getUser = async (req, res) => {
     try {
-        const userId = req.params.id; // Supongo que el ID se encuentra en los parámetros de la solicitud
-        const usuario = await db.Usuario.findOne({ where: { id: userId } });
+        const id = req.query.id; // Obtener el id de la consulta
 
-        if (!usuario) {
-            return res.status(404).json({
-                error: true,
-                message: `Usuario con ID ${userId} no encontrado`
-            });
-        }
+        if (id) {
+            // Si se proporciona un id, buscar un dato específico
+            const usuarios = await db.Usuario.findOne({ where: { id } });
 
-        return res.json(usuario);
+            if (!usuarios) {
+                // Si el id proporcionado no existe, devolver un error 400
+                return res.status(400).json({
+                    error: true,
+                    message: "El id proporcionado no existe"
+                });
+            }
+
+            return res.json(usuarios);
+        } else {
+            // Si no se proporciona un id, mostrar la lista completa con todos los datos
+            const usuario = await db.Usuario.findAll({});
+
+            return res.json(usuario);
+        };
+
     } catch (error) {
-        return res.status(400).json({
-            error: true,
-            message: `Ocurrió un error al procesar la petición: ${error.message}`
-        });
+        console.log(error);
+
+        let errors = [];
+
+        if (error.errors) {
+            //extraer la información de los campos que tienen error
+            errors = error.errors.map((item) => ({
+                error: item.message,
+                field: item.path,
+            }));
+        }
+        return res.status(400).json(
+            {
+                error: true,
+                message: `Ocurrio un error al procesar la información: ${error.message}`,
+                errors,
+            }
+        )
     }
-};
+}
+
 
 
 //POST FUNCTION
