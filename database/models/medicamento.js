@@ -20,8 +20,32 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Medicamento.init({
-    nombre: DataTypes.STRING,
-    descripcion: DataTypes.STRING,
+    nombre: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"Este campo es obligatorio"
+        },
+        is:{
+          args: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
+          msg:'El nombre del medicamento sólo debe contener texto'
+        },
+      },
+    },
+    descripcion: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"Este campo es obligatorio"
+        },
+        is:{
+          args: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
+          msg:'La descripción del medicamento sólo debe contener texto'
+        },
+      }
+    },
     medicamentoId:DataTypes.INTEGER
   }, {
     sequelize,

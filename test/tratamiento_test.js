@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const url = 'http://localhost:3000/api';
+const url = 'https://alarm-medice.vercel.app/api';
 
 describe("Módulo de Tratamientos", () => {
 

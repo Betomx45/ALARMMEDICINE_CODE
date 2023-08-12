@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const url = 'zapi';
+const url = 'https://alarm-medice.vercel.app/api';
 
 describe("Módulo de Medicamentos", () => {
 
@@ -78,7 +78,7 @@ describe("Módulo de Medicamentos", () => {
     describe("Actualizar Medicamento", () => {
         it("Debe actualizar un medicamento existente con datos correctos", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=2')
+                .put('/tratamiento?id=4')
                 .send({
                     fechaInicio:"2023-07-24 21:41:56",
                     fechaFinal:"2023-07-25 21:41:56",
@@ -99,7 +99,7 @@ describe("Módulo de Medicamentos", () => {
         });
         it("Debe devolver un error al faltar datos obligatorios para actualizar", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=2')
+                .put('/tratamiento?id=4')
                 .send({
                     fechaInicio: "2023-06-23T21:41:56.000Z",
                     fechaFinal: "2023-07-23T21:41:56.000Z",
@@ -108,14 +108,14 @@ describe("Módulo de Medicamentos", () => {
                 })
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.have.property('message');
+                    expect(res).to.have.status(400);
+                    expect(res.body).to.have.property('object');
                     done();
                 });
         });
         it("Debe devolver un error al enviar datos incorrectos para actualizar", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=2')
+                .put('/tratamiento?id=4')
                 .send({
                     fechaInicio:1,
                     fechaFinal:2,
@@ -129,8 +129,8 @@ describe("Módulo de Medicamentos", () => {
                 })
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.have.property('message');
+                    expect(res).to.have.status(400);
+                    expect(res.body).to.have.property('object');
                     done();
                 });
         });
@@ -155,19 +155,19 @@ describe("Módulo de Medicamentos", () => {
                 .get('/tratamiento?id=rt')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('error');
+                    expect(res).to.have.status(404);
+                    expect(res.body).to.have.property('object');
                     done();
                 });
         });
 
         it("Debe devolver un error al proporcionar un Id no existente", (done) => {
             chai.request(url)
-                .get('/tratamiento?id=0')
+                .get('/tratamiento?id=65432')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('error');
+                    expect(res).to.have.status(404);
+                    expect(res.body).to.have.property('object');
                     done();
                 });
         });
@@ -178,7 +178,7 @@ describe("Módulo de Medicamentos", () => {
 
         it("Debe eliminar un tratamiento existente", (done) => {
             chai.request(url)
-                .delete('/tratamiento?id=2')
+                .delete('/tratamiento?id=1')
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(200);
@@ -192,7 +192,7 @@ describe("Módulo de Medicamentos", () => {
                 .delete('/tratamiento')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(400);
+                    expect(res).to.have.status(404);
                     expect(res.body).to.have.property('error');
                     done();
                 });
@@ -200,7 +200,7 @@ describe("Módulo de Medicamentos", () => {
 
         it("Debe devolver un error al enviar un ID incorrecto para eliminar", (done) => {
             chai.request(url)
-                .delete('/tratamiento/0')
+                .delete('/tratamiento?id=uytr')
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(404);
