@@ -32,6 +32,7 @@ describe("Registro de usuarios", () => {
             .end(function(err, res) {
                 expect(res).to.have.status(400);
                 expect(res.body).to.have.property('object');
+                expect(res.body.error).to.be.true;
                 done();
             });
     });
@@ -47,6 +48,7 @@ describe("Registro de usuarios", () => {
             .end(function(err, res) {
                 expect(res).to.have.status(400);
                 expect(res.body).to.have.property('object');
+                expect(res.body.error).to.be.true;
                 done();
             });
     });
@@ -80,6 +82,7 @@ describe("Obtener usuarios", () => {
             .end(function(err, res) {
                 expect(res).to.have.status(404);
                 expect(res.body).to.have.property('object');
+                expect(res.body.error).to.be.true;
                 done();
             });
     });
@@ -88,7 +91,7 @@ describe("Obtener usuarios", () => {
 describe("Actualizar Usuarios", () => {
     it("Debe actualizar un usuario existente", (done) => {
         const updateUser = {
-            name: "Luis Castillo",
+            name: "Luis Nieva",
             email: "nievaluisalberto35@gmail.com"
         };
         chai.request(url)
@@ -113,6 +116,7 @@ describe("Actualizar Usuarios", () => {
             .end(function(err, res) {
                 expect(res).to.have.status(404);
                 expect(res.body).to.have.property('object');
+                expect(res.body.error).to.be.true;
                 done();
             });
     });
@@ -128,6 +132,7 @@ describe("Actualizar Usuarios", () => {
             .end(function(err, res) {
                 expect(res).to.have.status(404);
                 expect(res.body).to.have.property('object');
+                expect(res.body.error).to.be.true;
                 done();
             });
     });
@@ -150,6 +155,7 @@ describe("Eliminar Usuarios", () => {
             .end(function(err, res) {
                 expect(res).to.have.status(404);
                 expect(res.body).to.have.property('object');
+                expect(res.body.error).to.be.true;
                 done();
             });
     });

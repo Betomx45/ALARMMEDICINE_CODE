@@ -24,7 +24,16 @@ const addTratamiento = async (req, res) => {
         //console.log(req.body);
 
         //guardar los datos del Tratamiento
-        const tratamiento = await db.Tratamiento.create({ ...req.body }, { include: 'medicamento'});
+        const {fechaInicio,fechaFinal,intervaloDosis,userId, medicamento} = req.body;
+
+        if(!fechaInicio || fechaFinal || intervaloDosis || userId || medicamento) {
+            return res.status(400).json({
+                error: true,
+                message: "Todos los campos son requeridos"
+            });
+        };
+
+        const tratamiento = await db.Tratamiento.create({ fechaInicio,fechaFinal,intervaloDosis,userId, Medicamento: medicamento}, { include: 'medicamento'});
 
         res.json({
             tratamiento,
@@ -42,8 +51,6 @@ const addTratamiento = async (req, res) => {
                 field: item.path,
             }));
         }
-
-
         return res.status(400).json(
             {
                 error: true,
@@ -91,6 +98,14 @@ const TratamientoList = async (req, res) => {
 const editTratamiento = async (req, res) => {
     try {
         const { id } = req.query;
+        const {fechaInicio,fechaFinal,intervaloDosis,userId, medicamento} = req.body;
+
+        if(!fechaInicio || fechaFinal || intervaloDosis || userId || medicamento) {
+            return res.status(400).json({
+                error: true,
+                message: "Todos los campos son requeridos"
+            });
+        };
 
         // Verificar si el tratamiento existe antes de intentar actualizarlo
         const tratamiento = await db.Tratamiento.findByPk(id);
@@ -103,13 +118,14 @@ const editTratamiento = async (req, res) => {
         }
 
         // Actualizar los datos del tratamiento
-        await db.Tratamiento.update({ ...req.body }, {
+        await db.Tratamiento.update({ fechaInicio,fechaFinal,intervaloDosis,userId, Medicamento: medicamento}, { include: 'medicamento'}, {
             where: {
                 id
             }
         });
 
         res.status(200).json({
+            tratamiento,
             message: 'Se actualizó el tratamiento'
         });
     } catch (error) {

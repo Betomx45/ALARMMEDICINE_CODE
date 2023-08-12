@@ -13,11 +13,11 @@ describe("Módulo de Medicamentos", () => {
             chai.request(url)
                 .post('/tratamiento')
                 .send({
-                    fechaInicio:"2023-07-24 21:41:56",
-                    fechaFinal:"2023-07-25 21:41:56",
-                    intervaloDosis:8,
-                    userId:1,
-                    medicamento:{
+                    fechaInicio: "2023-07-24 21:41:56",
+                    fechaFinal: "2023-07-25 21:41:56",
+                    intervaloDosis: 8,
+                    userId: 1,
+                    medicamento: {
                         nombre: "Pearls",
                         descripcion: "Lactobacilus para infecciones estomacales",
                         medicamentoId: "1"
@@ -30,45 +30,49 @@ describe("Módulo de Medicamentos", () => {
                     done();
                 });
         });
+
         it("Debe devolver un error al faltar datos obligatorios", (done) => {
             chai.request(url)
                 .post('/tratamiento')
                 .send({
-                    fechaInicio:"2023-07-24 21:41:56",
-                        fechaFinal:"",
-                        intervaloDosis:8,
-                        userId:1,
-                        medicamento:{
-                            nombre: "",
-                            descripcion: "Lactobacilus para infecciones estomacales",
-                            medicamentoId: "1"
-                        }
+                    fechaInicio: "2023-07-24 21:41:56",
+                    fechaFinal: "",
+                    intervaloDosis: 8,
+                    userId: 1,
+                    medicamento: {
+                        nombre: null,
+                        descripcion: "Lactobacilus para infecciones estomacales",
+                        medicamentoId: "1"
+                    }
                 })
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('error');
+                    expect(res.body).to.have.property('object');
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
+
         it("Debe devolver un error al enviar datos incorrectos", (done) => {
             chai.request(url)
                 .post('/tratamiento')
                 .send({
-                    fechaInicio:8,
-                        fechaFinal:9,
-                        intervaloDosis:8,
-                        userId:1,
-                        medicamento:{
-                            nombre: 1,
-                            descripcion: 5,
-                            medicamentoId: 1
-                        }
+                    fechaInicio: 8,
+                    fechaFinal: 9,
+                    intervaloDosis: 8,
+                    userId: 1,
+                    medicamento: {
+                        nombre: 1,
+                        descripcion: "234567890",
+                        medicamentoId: 1
+                    }
                 })
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.have.property('message');
+                    expect(res).to.have.status(400);
+                    expect(res.body).to.have.property('object');
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
@@ -78,13 +82,13 @@ describe("Módulo de Medicamentos", () => {
     describe("Actualizar Medicamento", () => {
         it("Debe actualizar un medicamento existente con datos correctos", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=4')
+                .put('/tratamiento?id=1')
                 .send({
-                    fechaInicio:"2023-07-24 21:41:56",
-                    fechaFinal:"2023-07-25 21:41:56",
-                    intervaloDosis:8,
-                    userId:1,
-                    medicamento:{
+                    fechaInicio: "2023-07-24 21:41:56",
+                    fechaFinal: "2023-07-25 21:41:56",
+                    intervaloDosis: 8,
+                    userId: 1,
+                    medicamento: {
                         nombre: "Naproxeno",
                         descripcion: "Lactobacilus para infecciones estomacales",
                         medicamentoId: "1"
@@ -99,29 +103,13 @@ describe("Módulo de Medicamentos", () => {
         });
         it("Debe devolver un error al faltar datos obligatorios para actualizar", (done) => {
             chai.request(url)
-                .put('/tratamiento?id=4')
+                .put('/tratamiento?id=1')
                 .send({
-                    fechaInicio: "2023-06-23T21:41:56.000Z",
-                    fechaFinal: "2023-07-23T21:41:56.000Z",
-                    intervaloDosis:8,
-                    userId:1
-                })
-                .end((err, res) => {
-                    //console.log(res.body);
-                    expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('object');
-                    done();
-                });
-        });
-        it("Debe devolver un error al enviar datos incorrectos para actualizar", (done) => {
-            chai.request(url)
-                .put('/tratamiento?id=4')
-                .send({
-                    fechaInicio:1,
-                    fechaFinal:2,
-                    intervaloDosis:"8",
-                    userId:"1",
-                    medicamento:{
+                    fechaInicio: 1,
+                    fechaFinal: 2,
+                    intervaloDosis: null,
+                    userId: null,
+                    medicamento: {
                         nombre: null,
                         descripcion: null,
                         medicamentoId: 1
@@ -131,6 +119,29 @@ describe("Módulo de Medicamentos", () => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
                     expect(res.body).to.have.property('object');
+                    expect(res.body.error).to.be.true;
+                    done();
+                });
+        });
+        it("Debe devolver un error al enviar datos incorrectos para actualizar", (done) => {
+            chai.request(url)
+                .put('/tratamiento?id=1')
+                .send({
+                    fechaInicio: 1,
+                    fechaFinal: 2,
+                    intervaloDosis: "8",
+                    userId: null,
+                    medicamento: {
+                        nombre: null,
+                        descripcion: null,
+                        medicamentoId: 1
+                    }
+                })
+                .end((err, res) => {
+                    //console.log(res.body);
+                    expect(res).to.have.status(400);
+                    expect(res.body).to.have.property('object');
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
@@ -157,6 +168,7 @@ describe("Módulo de Medicamentos", () => {
                     //console.log(res.body);
                     expect(res).to.have.status(404);
                     expect(res.body).to.have.property('object');
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
@@ -168,6 +180,7 @@ describe("Módulo de Medicamentos", () => {
                     //console.log(res.body);
                     expect(res).to.have.status(404);
                     expect(res.body).to.have.property('object');
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
@@ -193,7 +206,7 @@ describe("Módulo de Medicamentos", () => {
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(404);
-                    expect(res.body).to.have.property('error');
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
@@ -204,6 +217,7 @@ describe("Módulo de Medicamentos", () => {
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(404);
+                    expect(res.body.error).to.be.true;
                     done();
                 });
         });
