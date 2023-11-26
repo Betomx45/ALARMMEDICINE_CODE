@@ -5,7 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return Promise.all([
       queryInterface.addColumn(
-        'usuarios',
+        'Usuarios',
         'passwordResetToken',
         {
           type: Sequelize.DataTypes.STRING(128),
@@ -14,7 +14,7 @@ module.exports = {
         },
       ),
       queryInterface.addColumn(
-        'usuarios',
+        'Usuarios',
         'passwordResetExpire',
         {
           type: Sequelize.DataTypes.BIGINT,
@@ -27,8 +27,8 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     return Promise.all([
-      queryInterface.removeColumn('usuarios', 'passwordResetToken'),
-      queryInterface.removeColumn('usuarios', 'passwordResetExpire'),
+      queryInterface.removeColumn('Usuarios', 'passwordResetToken'),
+      queryInterface.removeColumn('Usuarios', 'passwordResetExpire'),
     ]);
   }
 };

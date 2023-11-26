@@ -5,12 +5,12 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return Promise.all([
       queryInterface.addColumn(
-        'medicamentos',
+        'Medicamentos',
         'tratamientoId',
         {
           type:Sequelize.DataTypes.INTEGER,
           references:{
-            model: 'tratamientos',
+            model: 'Tratamientos',
             key: 'id',
           },
           onUpdate:'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     return Promise.all([
       queryInterface.removeColumn(
-        'medicamentos',
+        'Medicamentos',
         'tratamientoId',
       )
     ]);
