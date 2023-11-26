@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate:{
         notNull:{
-          msg:'Elnombre es obligatorio'
+          msg:'El nombre es obligatorio'
         },
         is:{
           args: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,

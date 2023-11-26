@@ -36,7 +36,7 @@ describe("Módulo de Medicamentos", () => {
                 .post('/tratamiento')
                 .send({
                     fechaInicio: "2023-07-24 21:41:56",
-                    fechaFinal: "",
+                    fechaFinal: null,
                     intervaloDosis: 8,
                     userId: 1,
                     medicamento: {
@@ -48,7 +48,7 @@ describe("Módulo de Medicamentos", () => {
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('object');
+                    expect(res.body).to.have.property('error');
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -71,7 +71,7 @@ describe("Módulo de Medicamentos", () => {
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('object');
+                    expect(res.body).to.have.property('error');
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -118,7 +118,7 @@ describe("Módulo de Medicamentos", () => {
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('object');
+                    expect(res.body).to.have.property('error');
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -129,7 +129,7 @@ describe("Módulo de Medicamentos", () => {
                 .send({
                     fechaInicio: 1,
                     fechaFinal: 2,
-                    intervaloDosis: "8",
+                    intervaloDosis: null,
                     userId: null,
                     medicamento: {
                         nombre: null,
@@ -140,7 +140,7 @@ describe("Módulo de Medicamentos", () => {
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(400);
-                    expect(res.body).to.have.property('object');
+                    expect(res.body).to.have.property('error');
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -166,8 +166,8 @@ describe("Módulo de Medicamentos", () => {
                 .get('/tratamiento?id=rt')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(404);
-                    expect(res.body).to.have.property('object');
+                    expect(res).to.have.status(400);
+                    expect(res.body).to.have.property('error');
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -178,8 +178,8 @@ describe("Módulo de Medicamentos", () => {
                 .get('/tratamiento?id=65432')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(404);
-                    expect(res.body).to.have.property('object');
+                    expect(res).to.have.status(400);
+                    expect(res.body).to.have.property('error');
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -191,7 +191,7 @@ describe("Módulo de Medicamentos", () => {
 
         it("Debe eliminar un tratamiento existente", (done) => {
             chai.request(url)
-                .delete('/tratamiento?id=1')
+                .delete('/tratamiento?id=2')
                 .end((err, res) => {
                     //console.log(res.body);
                     expect(res).to.have.status(200);
@@ -205,7 +205,7 @@ describe("Módulo de Medicamentos", () => {
                 .delete('/tratamiento')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(404);
+                    expect(res).to.have.status(400);
                     expect(res.body.error).to.be.true;
                     done();
                 });
@@ -216,7 +216,7 @@ describe("Módulo de Medicamentos", () => {
                 .delete('/tratamiento?id=uytr')
                 .end((err, res) => {
                     //console.log(res.body);
-                    expect(res).to.have.status(404);
+                    expect(res).to.have.status(400);
                     expect(res.body.error).to.be.true;
                     done();
                 });

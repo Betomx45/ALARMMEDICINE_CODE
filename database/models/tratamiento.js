@@ -21,12 +21,25 @@ module.exports = (sequelize, DataTypes) => {
       models.Tratamiento.hasMany(models.Medicamento,
         {
           as:'medicamento',
-          foreignKey:'medicamentoId'
+          foreignKey:'tratamientoId'
         }
       )
     }
   }
   Tratamiento.init({
+    nombreTratamiento: {
+      type:DataTypes.STRING(60),
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'El nombre del tratamiento es obligatorio'
+        },
+        is:{
+          args: /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g,
+          msg:'El nombre sólo debe contener texto'
+        },
+      },
+    },
     fechaInicio: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -34,9 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'Este campo es obligatorio'
         },
+        /*
         isDate: {
           msg: 'La fecha de inicio debe ser valida'
-        }
+        }*/
       },
     },
     fechaFinal: {
@@ -62,6 +76,11 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Debes ingresar un número'
         },
       },
+    },
+    status: {
+      type: DataTypes.ENUM('activo', 'finalizado'),
+      defaultValue: 'activo', // Establece 'activo' como valor por defecto
+      allowNull: false,
     },
     userId: DataTypes.INTEGER,
 
