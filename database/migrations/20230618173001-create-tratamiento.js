@@ -2,12 +2,16 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Tratamientos', {
+    await queryInterface.createTable('tratamientos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      nombreTratamiento: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       fechaInicio: {
         type: Sequelize.DATE,
@@ -21,6 +25,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      status: {
+        type: Sequelize.ENUM('activo', 'finalizado'), // Usamos ENUM para limitar los valores posibles
+        defaultValue: 'activo', // Establece un valor por defecto
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -32,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Tratamientos');
+    await queryInterface.dropTable('tratamientos');
   }
 };

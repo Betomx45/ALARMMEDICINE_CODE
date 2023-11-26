@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.Medicamento.belongsTo(models.Tratamiento,
         {
           as:'tratamiento',
-          foreignKey:'medicamentoId'
+          foreignKey:'tratamientoId'
         }
         );
     }
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       }
     },
-    medicamentoId:DataTypes.INTEGER
+    tratamientoId:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Medicamento',
