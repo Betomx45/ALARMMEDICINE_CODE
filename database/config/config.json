@@ -1,26 +1,26 @@
 {
   "development": {
     "username": "admin",
-    "password": "equipo123",
+    "password": "G1EJUkbd",
     "database": "medicine",
-    "host": "mysql-139626-0.cloudclusters.net",
-    "port": "14873",
+    "host": "mysql-155627-0.cloudclusters.net",
+    "port": "19301",
     "dialect": "mysql"
   },
   "test": {
     "username": "admin",
-    "password": "equipo123",
+    "password": "G1EJUkbd",
     "database": "medicine",
-    "host": "mysql-139626-0.cloudclusters.net",
-    "port": "14873",
+    "host": "mysql-155627-0.cloudclusters.net",
+    "port": "19301",
     "dialect": "mysql"
   },
   "production": {
     "username": "admin",
-    "password": "equipo123",
+    "password": "G1EJUkbd",
     "database": "medicine",
-    "host": "mysql-139626-0.cloudclusters.net",
-    "port": "14873",
+    "host": "mysql-155627-0.cloudclusters.net",
+    "port": "19301",
     "dialect": "mysql"
   }
 }
